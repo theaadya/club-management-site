@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <nav className="bg-gray-800 py-4">
+        <nav className="bg-[#333333] py-7">
           {/* ... */}
         </nav>
         <Routes>
