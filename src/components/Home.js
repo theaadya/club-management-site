@@ -9,7 +9,7 @@ const Home = () => {
         <h3 className="text-xl mb-6 text-center text-gray-800">Centralize, Organize, and Elevate Your Club Experience</h3>
         <Link
           to="/login"
-          className="block bg-[#3FADA8] hover:bg-[#808080] text-white font-bold py-3 px-6 rounded-md text-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="block bg-[#3FADA8] hover:bg-[#808080] text-white font-bold py-3 px-6 rounded-md text-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#3FADA8] focus:ring-offset-2"
         >
           Login
         </Link>
