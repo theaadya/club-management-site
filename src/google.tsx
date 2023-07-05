@@ -1,17 +1,23 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-const google = () => {
+const GoogleLoginComponent = () => {
+  const handleLoginSuccess = (credentialResponse) => {
+    console.log(credentialResponse);
+    window.location.href = '/mainpage';
+  };
+
+  const handleLoginError = () => {
+    console.log('Login Failed');
+    window.location.href = '/mainpage';
+  };
+
   return (
     <GoogleLogin
-      onSuccess={credentialResponse => {
-        console.log(credentialResponse);
-      }}
-      onError={() => {
-        console.log('Login Failed');
-      }}
+      onSuccess={handleLoginSuccess}
+      onError={handleLoginError}
     />
-  )
-}
+  );
+};
 
-export default google;
+export default GoogleLoginComponent;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Google from '../google.tsx';
+import GoogleLoginComponent from '../google.tsx';
 
 const SignUp = () => {
   return (
@@ -53,15 +53,8 @@ const SignUp = () => {
             <div className="mb-6">
             <div className="flex items-center justify-center">
             <GoogleOAuthProvider clientId="157144026998-m6ttloec606q7jqb82ks58iteu7k00mq.apps.googleusercontent.com">
-              <Google />
-              {/* <button
-                className="bg-white hover:bg-[#f0f0f0] text-[#4D4D4D] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center"
-                type="button"
-              >
-                <img src={googleLogo} alt="Google Logo" className="h-6 mr-2" />
-                Sign up with Google
-              </button> */}
-              </GoogleOAuthProvider>
+              <GoogleLoginComponent />
+            </GoogleOAuthProvider>
             </div>
           </div>
         </form>}
