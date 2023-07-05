@@ -9,7 +9,6 @@ const GoogleLoginComponent = () => {
 
   const handleLoginError = () => {
     console.log('Login Failed');
-    window.location.href = '/mainpage';
   };
 
   return (
