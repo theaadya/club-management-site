@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
+import ClubCoordinator from './pages/ClubCoordinator';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mainpage" element={<MainPage />} />
+          <Route path="/clubcoordinator" element={<ClubCoordinator />} />
         </Routes>
       </div>
     </Router>
