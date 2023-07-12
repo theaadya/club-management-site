@@ -85,7 +85,7 @@ const ClubCoordinator = () => {
 
         {isModalOpen && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="max-w-3xl w-full h-3/4 p-6 bg-white shadow-lg rounded-md overflow-y-auto max-h-full">
+        <div className="max-w-2xl w-3/4 max-h-2xl h-3/4 p-6 bg-white shadow-lg rounded-md overflow-y-auto">
             <h2 className="text-2xl text-center font-bold mb-4">New Event Request</h2>
             <form onSubmit={handleSubmit}>
             <div className="mb-4">
