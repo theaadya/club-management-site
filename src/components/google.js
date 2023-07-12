@@ -12,10 +12,10 @@ const GoogleLoginComponent = () => {
   };
 
   return (
-    <GoogleLogin
-      onSuccess={handleLoginSuccess}
-      onError={handleLoginError}
-    />
+    React.createElement(GoogleLogin, {
+      onSuccess: handleLoginSuccess,
+      onError: handleLoginError
+    })
   );
 };
 

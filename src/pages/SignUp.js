@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import GoogleLoginComponent from '../google.tsx';
+import GoogleLoginComponent from '../components/google.js';
 
 const SignUp = () => {
   return (
