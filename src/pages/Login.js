@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <><Navbar />
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-md">
+      <div className="max-w-md w-3/4 p-6 bg-white shadow-lg rounded-md">
         <h2 className="text-2xl text-center font-semibold mb-4">Login</h2>
         {<form>
           <div className="mb-4">
