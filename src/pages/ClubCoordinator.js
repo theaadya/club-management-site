@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/navbar.js';
+import Navbar from '../components/common/navbar.js';
 
 
 const ClubCoordinator = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import GoogleLoginComponent from '../components/google.js';
-import Navbar from '../components/navbar.js';
+import GoogleLoginComponent from '../components/auth/google.js';
+import Navbar from '../components/common/navbar.js';
 
 const SignUp = () => {
   return (
