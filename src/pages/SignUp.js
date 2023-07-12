@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginComponent from '../components/google.js';
+import Navbar from '../components/navbar.js';
 
 const SignUp = () => {
   return (
+    <><Navbar />
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-md">
         <h2 className="text-2xl text-center font-semibold mb-4">Sign Up</h2>
@@ -59,7 +61,7 @@ const SignUp = () => {
           </div>
         </form>}
       </div>
-    </div>
+    </div></>
   );
 };
 

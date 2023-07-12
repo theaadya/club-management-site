@@ -4,20 +4,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
-import logo from './assets/logo.png';
 
 const App = () => {
   return (
     <Router>
       <div className="App">
-        <nav className="bg-[#ffffff] py-5 border-b-2 border-[#666666] shadow">
-          <div className="container mx-auto flex items-center justify-between">
-            <Link to="/">
-              <img src={logo} alt="Logo" className="h-12 mr-7" />
-            </Link>
-            {/* Navigation links */}
-          </div>
-        </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
