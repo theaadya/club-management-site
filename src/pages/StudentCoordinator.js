@@ -90,7 +90,20 @@ const StudentCoordinator = () => {
                 className="flex justify-between items-center py-1"
               >
                 <span>{event.name}</span>
-                {/* Approve and Reject buttons */}
+                <div>
+                  <button
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2"
+                    // onClick={() => handleApprove(request.id)}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded"
+                    // onClick={() => handleReject(request.id)}
+                  >
+                    Reject
+                  </button>
+                </div>
               </li>
             ))}
         </ul>
@@ -105,7 +118,7 @@ const StudentCoordinator = () => {
                 className="flex justify-between items-center py-1"
               >
                 <span>{event.name}</span>
-                {/* Approved label */}
+                <span className="text-green-500">Approved</span>
               </li>
             ))}
         </ul>
@@ -120,7 +133,7 @@ const StudentCoordinator = () => {
                 className="flex justify-between items-center py-1"
               >
                 <span>{event.name}</span>
-                {/* Rejected label */}
+                <span className="text-red-500">Rejected</span>
               </li>
             ))}
         </ul>
