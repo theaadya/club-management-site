@@ -1,46 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/common/navbar.js';
+import axios from 'axios';
 
 const StudentCoordinator = () => {
-  const [requests, setRequests] = useState([
-    {
-      id: 1,
-      title: 'Request 1',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Request 2',
-      status: 'approved',
-    },
-    {
-      id: 3,
-      title: 'Request 3',
-      status: 'rejected',
-    },
-  ]);
+  const [events, setEvents] = useState([]);
 
-  const handleApprove = (id) => {
-    setRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request.id === id ? { ...request, status: 'approved' } : request
-      )
-    );
-  };
-
-  const handleReject = (id) => {
-    setRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request.id === id ? { ...request, status: 'rejected' } : request
-      )
-    );
-  };
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await axios.get('/studentcoordinator');
+        setEvents(response.data.events);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    }
+    fetchEvents();
+  }, []);
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl text-center font-bold">Student Coordinator Dashboard</h1>
+        {/* <h1 className="text-2xl text-center font-bold">Student Coordinator Dashboard</h1>
 
         <h2 className="text-xl font-bold mt-4">Pending Requests</h2>
         <ul className="border border-gray-300 p-2 bg-white mt-2">
@@ -96,6 +77,50 @@ const StudentCoordinator = () => {
               >
                 <span>{request.title}</span>
                 <span className="text-red-500">Rejected</span>
+              </li>
+            ))}
+        </ul> */}
+        <h1 className="text-xl font-bold mt-4">Pending Requests</h1>
+        <ul className="border border-gray-300 p-2 bg-white mt-2">
+          {events
+            .filter(event => event.status === 'pending')
+            .map(event => (
+              <li
+                key={event._id}  // Assuming _id is the unique identifier
+                className="flex justify-between items-center py-1"
+              >
+                <span>{event.name}</span>
+                {/* Approve and Reject buttons */}
+              </li>
+            ))}
+        </ul>
+
+        <h1 className="text-xl font-bold mt-4">Approved Requests</h1>
+        <ul className="border border-gray-300 p-2 bg-white mt-2">
+          {events
+            .filter(event => event.status === 'approved')
+            .map(event => (
+              <li
+                key={event._id}
+                className="flex justify-between items-center py-1"
+              >
+                <span>{event.name}</span>
+                {/* Approved label */}
+              </li>
+            ))}
+        </ul>
+
+        <h1 className="text-xl font-bold mt-4">Rejected Requests</h1>
+        <ul className="border border-gray-300 p-2 bg-white mt-2">
+          {events
+            .filter(event => event.status === 'rejected')
+            .map(event => (
+              <li
+                key={event._id}
+                className="flex justify-between items-center py-1"
+              >
+                <span>{event.name}</span>
+                {/* Rejected label */}
               </li>
             ))}
         </ul>
