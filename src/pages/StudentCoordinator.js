@@ -103,7 +103,12 @@ const StudentCoordinator = () => {
                 key={event._id}  // Assuming _id is the unique identifier
                 className="flex justify-between items-center py-1"
               >
-                <h3 onClick={() => openModal(event)}>{event.name}</h3>
+                <h3
+                  onClick={() => openModal(event)}
+                  className="cursor-pointer hover:text-[#3FADA8]"
+                >
+                  {event.name}
+                </h3>
                 <div>
                   <button
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2"
@@ -131,7 +136,12 @@ const StudentCoordinator = () => {
                 key={event._id}
                 className="flex justify-between items-center py-1"
               >
-                <span>{event.name}</span>
+                <h3
+                  onClick={() => openModal(event)}
+                  className="cursor-pointer hover:text-[#3FADA8]"
+                >
+                  {event.name}
+                </h3>
                 <span className="text-green-500">Approved</span>
               </li>
             ))}
@@ -146,7 +156,12 @@ const StudentCoordinator = () => {
                 key={event._id}
                 className="flex justify-between items-center py-1"
               >
-                <span>{event.name}</span>
+                <h3
+                  onClick={() => openModal(event)}
+                  className="cursor-pointer hover:text-[#3FADA8]"
+                >
+                  {event.name}
+                </h3>
                 <span className="text-red-500">Rejected</span>
               </li>
             ))}
