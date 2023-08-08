@@ -4,7 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 const GoogleLoginComponent = () => {
   const handleLoginSuccess = (credentialResponse) => {
     console.log(credentialResponse);
-    window.location.href = '/clubcoordinator';
+    window.location.href = '/mainpage';
   };
 
   const handleLoginError = () => {
