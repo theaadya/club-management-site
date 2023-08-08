@@ -1,23 +1,43 @@
 import React, { useState } from 'react';
 import Navbar from '../components/common/navbar.js';
-
+import axios from 'axios'; 
 
 const ClubCoordinator = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // Handle form submission logic here
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(event.target);
+      const requestData = {
+        name: formData.get('eventName'),
+        description: formData.get('eventDescription'),
+        domain: formData.get('eventDomain'),
+        start: formData.get('eventDate'), // Use 'start' instead of 'date'
+        end: formData.get('eventTime'),   // Use 'end' instead of 'time'
+        participationExpected: formData.get('eventParticipationExpected'),
+        preferredVenue: formData.get('eventPreferredVenue'),
+      };
+
+      const response = await axios.post('/clubs/events', requestData); // Use relative URL
+
+      console.log('Event request submitted:', response.data);
       closeModal();
-    };
+    } catch (error) {
+      console.error('Error submitting event request:', error);
+    }
+  };
+    
+    
   
   return (
     <>

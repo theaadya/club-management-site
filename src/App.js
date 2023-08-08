@@ -8,6 +8,7 @@ import Students from './pages/Students';
 import MainPage from './pages/MainPage';
 import ClubCoordinator from './pages/ClubCoordinator';
 import StudentCoordinator from './pages/StudentCoordinator';
+import ClubList from './pages/ClubList';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/mainpage" element={<MainPage />} />
           <Route path="/clubcoordinator" element={<ClubCoordinator />} />
           <Route path="/studentcoordinator" element={<StudentCoordinator />} />
+          <Route path="/clubs" element={<ClubList />} />
         </Routes>
       </div>
     </Router>
