@@ -2,7 +2,7 @@
   "name": "club-management-site",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://127.0.0.1:8080",
   "dependencies": {
     "@react-oauth/google": "^0.11.0",
     "@testing-library/jest-dom": "^5.16.5",

@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import Navbar from '../components/common/navbar.js';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const ClubCoordinator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    eventName: '',
+    eventDescription: '',
+    eventDomain: '',
+    start: '',
+    end: '',
+    venue:'',
+    coordinator:'',
+    status:'Pending',
+    registrationDeadline:'',
+    club:'',
+    participants: [],
+    creationDate:'',
+  });
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -17,18 +31,20 @@ const ClubCoordinator = () => {
     event.preventDefault();
 
     try {
-      const formData = new FormData(event.target);
       const requestData = {
-        name: formData.get('eventName'),
-        description: formData.get('eventDescription'),
-        domain: formData.get('eventDomain'),
-        start: formData.get('eventDate'), // Use 'start' instead of 'date'
-        end: formData.get('eventTime'),   // Use 'end' instead of 'time'
-        participationExpected: formData.get('eventParticipationExpected'),
-        preferredVenue: formData.get('eventPreferredVenue'),
+        name: formData.eventName,
+        description: formData.eventDescription,
+        domain: formData.eventDomain,
+        start: formData.Start,
+        end: formData.End,
+        preferredVenue: formData.eventPreferredVenue,
+        coordinator: formData.coordinator,
+        registrationDeadline: formData.registrationDeadline,   
+        club: formData.club,
+        creationDate: formData.creationDate,
       };
 
-      const response = await axios.post('/clubs/events', requestData); // Use relative URL
+      const response = await axios.post('/events/requests', requestData);
 
       console.log('Event request submitted:', response.data);
       closeModal();
@@ -58,12 +74,14 @@ const ClubCoordinator = () => {
           </div>
 
           <div>
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold mb-4">New Requests</h2>
-                <button className="bg-[#3FADA8] hover:bg-[#808080] hover:text-white text-white font-bold py-1 px-4 mb-2 rounded" 
-                onClick={openModal}>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold mb-4">New Requests</h2>
+              <button
+                className="bg-[#3FADA8] hover:bg-[#808080] hover:text-white text-white font-bold py-1 px-4 mb-2 rounded"
+                onClick={openModal}
+              >
                 New Request +
-                </button>
+              </button>
             </div>
             <ul className="border border-gray-300 p-2 bg-white">
               {/* Iterate over new requests */}
@@ -103,56 +121,128 @@ const ClubCoordinator = () => {
         </div>
 
         {isModalOpen && (
-        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="max-w-2xl w-3/4 max-h-2xl h-3/4 p-6 bg-white shadow-lg rounded-md overflow-y-auto">
-            <h2 className="text-2xl text-center font-bold mb-4">New Event Request</h2>
-            <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-            <label className="block font-bold">Event Title</label>
-            <input type="text" className="border border-gray-300 p-2 w-full" />
+          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div className="max-w-2xl w-3/4 max-h-2xl h-3/4 p-6 bg-white shadow-lg rounded-md overflow-y-auto">
+              <h2 className="text-2xl text-center font-bold mb-4">New Event Request</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="block font-bold">Event Title</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="eventName"
+                    value={formData.eventName}
+                    onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
+                  />
 
-            <label className="block font-bold">Event Description</label>
-            <textarea className="border border-gray-300 p-2 w-full h-20" />
+                  <label className="block font-bold">Event Description</label>
+                  <textarea
+                    className="border border-gray-300 p-2 w-full h-20"
+                    name="eventDescription"
+                    value={formData.eventDescription}
+                    onChange={(e) => setFormData({ ...formData, eventDescription: e.target.value })}
+                  />
 
-            <label className="block font-bold">Domain</label>
-            <input type="text" className="border border-gray-300 p-2 w-full" />
+                  <label className="block font-bold">Domain</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="eventDomain"
+                    value={formData.eventDomain}
+                    onChange={(e) => setFormData({ ...formData, eventDomain: e.target.value })}
+                  />
 
-            <label className="block font-bold">Date</label>
-            <input type="date" className="border border-gray-300 p-2 w-full" />
+                  <label className="block font-bold">Start</label>
+                  <input
+                    type="time"
+                    className="border border-gray-300 p-2 w-full"
+                    name="Start"
+                    value={formData.Start}
+                    onChange={(e) => setFormData({ ...formData, Start: e.target.value })}
+                  />
+                  
+                  <label className="block font-bold">End</label>
+                  <input
+                    type="time"
+                    className="border border-gray-300 p-2 w-full"
+                    name="end"
+                    value={formData.End}
+                    onChange={(e) => setFormData({ ...formData, End: e.target.value })}
+                  />
 
-            <label className="block font-bold">Time</label>
-            <input type="time" className="border border-gray-300 p-2 w-full" />
+                  <label className="block font-bold">Preferred Venue</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="eventPreferredVenue"
+                    value={formData.eventPreferredVenue}
+                    onChange={(e) => setFormData({ ...formData, eventPreferredVenue: e.target.value })}
+                  />
 
-            <label className="block font-bold">Participation Expected</label>
-            <input type="text" className="border border-gray-300 p-2 w-full" />
+                  <label className="block font-bold">Coordinator</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="coordinator"
+                    value={formData.coordinator}
+                    onChange={(e) => setFormData({ ...formData, coordinator: e.target.value })}
+                  />
 
-            <label className="block font-bold">Preferred Venue</label>
-            <input type="text" className="border border-gray-300 p-2 w-full" />
+                  <label className="block font-bold">Registration Deadline</label>
+                  <input
+                    type="date"
+                    className="border border-gray-300 p-2 w-full"
+                    name="registrationDeadline"
+                    value={formData.registrationDeadline}
+                    onChange={(e) => setFormData({ ...formData, registrationDeadline: e.target.value })}
+                  />
 
+                  <label className="block font-bold">Club</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="club"
+                    value={formData.club}
+                    onChange={(e) => setFormData({ ...formData, club: e.target.value })}
+                  />
+
+                  <label className="block font-bold">Creation Date</label>
+                  <input
+                    type="date"
+                    className="border border-gray-300 p-2 w-full"
+                    name="creationDate"
+                    value={formData.creationDate}
+                    onChange={(e) => setFormData({ ...formData, creationDate: e.target.value })}
+                  />
+
+
+                  
+
+                  {/* ... other input fields ... */}
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="bg-[#3FADA8] hover:bg-[#808080] hover:text-white text-white font-bold py-2 px-4 rounded"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    className="ml-4 bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="flex justify-center">
-            <button
-                type="submit"
-                className="bg-[#3FADA8] hover:bg-[#808080] hover:text-white text-white font-bold py-2 px-4 rounded"
-            >
-                Submit
-            </button>
-            <button
-                type="button"
-                className="ml-4 bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
-                onClick={closeModal}
-            >
-                Cancel
-            </button>
-            </div>
-            </form>
-        </div>
-        </div>
+          </div>
         )}
-
       </div>
     </>
   );
 };
+
 
 export default ClubCoordinator;
