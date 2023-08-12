@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import Navbar from '../components/common/navbar.js';
 import axios from 'axios';
 
+console.log('kdjfkj');
 const ClubCoordinator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    eventName: '',
-    eventDescription: '',
-    eventDomain: '',
-    start: '',
-    end: '',
-    venue:'',
-    coordinator:'',
-    status:'Pending',
-    registrationDeadline:'',
-    club:'',
-    participants: [],
-    creationDate:'',
+    eventName: "",
+    eventDescription: "",
+    eventDomain: "",
+    start: "",
+    end: "",
+    venue:"",
+    coordinator:"",
+    status: "",
+    registrationDeadline:"",
+    club:"",
+    creationDate:"",
   });
 
   const openModal = () => {
@@ -35,15 +35,18 @@ const ClubCoordinator = () => {
         name: formData.eventName,
         description: formData.eventDescription,
         domain: formData.eventDomain,
-        start: formData.Start,
-        end: formData.End,
-        preferredVenue: formData.eventPreferredVenue,
+        start: formData.start,
+        end: formData.end,
+        venue: formData.venue,
         coordinator: formData.coordinator,
+        status: formData.status,
         registrationDeadline: formData.registrationDeadline,   
         club: formData.club,
+        participants: [],
         creationDate: formData.creationDate,
       };
 
+      console.log(requestData)
       const response = await axios.post('/events/requests', requestData);
 
       console.log('Event request submitted:', response.data);
@@ -136,8 +139,9 @@ const ClubCoordinator = () => {
                   />
 
                   <label className="block font-bold">Event Description</label>
-                  <textarea
-                    className="border border-gray-300 p-2 w-full h-20"
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
                     name="eventDescription"
                     value={formData.eventDescription}
                     onChange={(e) => setFormData({ ...formData, eventDescription: e.target.value })}
@@ -154,29 +158,29 @@ const ClubCoordinator = () => {
 
                   <label className="block font-bold">Start</label>
                   <input
-                    type="time"
+                    type="text"
                     className="border border-gray-300 p-2 w-full"
-                    name="Start"
-                    value={formData.Start}
-                    onChange={(e) => setFormData({ ...formData, Start: e.target.value })}
+                    name="start"
+                    value={formData.start}
+                    onChange={(e) => setFormData({ ...formData, start: e.target.value })}
                   />
                   
                   <label className="block font-bold">End</label>
                   <input
-                    type="time"
+                    type="text"
                     className="border border-gray-300 p-2 w-full"
                     name="end"
-                    value={formData.End}
-                    onChange={(e) => setFormData({ ...formData, End: e.target.value })}
+                    value={formData.end}
+                    onChange={(e) => setFormData({ ...formData, end: e.target.value })}
                   />
 
                   <label className="block font-bold">Preferred Venue</label>
                   <input
                     type="text"
                     className="border border-gray-300 p-2 w-full"
-                    name="eventPreferredVenue"
-                    value={formData.eventPreferredVenue}
-                    onChange={(e) => setFormData({ ...formData, eventPreferredVenue: e.target.value })}
+                    name="venue"
+                    value={formData.venue}
+                    onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
                   />
 
                   <label className="block font-bold">Coordinator</label>
@@ -188,9 +192,18 @@ const ClubCoordinator = () => {
                     onChange={(e) => setFormData({ ...formData, coordinator: e.target.value })}
                   />
 
+                  <label className="block font-bold">Status</label>
+                  <input
+                    type="text"
+                    className="border border-gray-300 p-2 w-full"
+                    name="status"
+                    value={formData.status}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                  />
+
                   <label className="block font-bold">Registration Deadline</label>
                   <input
-                    type="date"
+                    type="text"
                     className="border border-gray-300 p-2 w-full"
                     name="registrationDeadline"
                     value={formData.registrationDeadline}
@@ -208,7 +221,7 @@ const ClubCoordinator = () => {
 
                   <label className="block font-bold">Creation Date</label>
                   <input
-                    type="date"
+                    type="text"
                     className="border border-gray-300 p-2 w-full"
                     name="creationDate"
                     value={formData.creationDate}
