@@ -1,5 +1,5 @@
-// components/admin/LoginDetails.js
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const LoginDetails = () => {
   const [studentCouncilCoordinator, setStudentCouncilCoordinator] = useState('');
