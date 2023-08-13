@@ -51,17 +51,8 @@ db.createCollection("events", {
   }
 })
 
-db.createCollection("users", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["name", "email", "handle", "password"],
-      properties: {
-        name: { bsonType: "string" },
-        email: { bsonType: "string" },
-        handle: { bsonType: "string" },
-        password: { bsonType: "string" }
-      }
-    }
-  }
+db.users.insertOne({
+  name: "Akanksha Singal",
+  email: "akanksha21008@iiitd.ac.in",
+  level: "Club Coordinator"
 })

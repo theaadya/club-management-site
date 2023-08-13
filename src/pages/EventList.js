@@ -45,6 +45,9 @@ const EventList = () => {
         <Link to="/clubs" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Club List
         </Link>
+        <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+          Logout
+        </Link>
       </div>
       <div className="container mx-auto p-4">
         <div className="grid grid-cols-2 gap-4">            

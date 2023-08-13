@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/common/navbar.js';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 console.log('kdjfkj');
 const ClubCoordinator = () => {
@@ -61,6 +62,14 @@ const ClubCoordinator = () => {
   return (
     <>
       <Navbar />
+    
+        <div className="p-6">
+            <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+            Logout
+          </Link>
+
+          </div>
+       
       <div className="container mx-auto p-4">
         <h1 className="text-2xl text-center font-bold mb-4">Club Coordinator Dashboard</h1>
         <div className="grid grid-cols-2 gap-4">
