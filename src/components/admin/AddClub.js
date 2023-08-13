@@ -13,6 +13,8 @@ const AddClub = () => {
     creationDate: ""
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
+
   const formattedEvents = formData.events.split(',').map((event) => event.trim());
   const formattedMembers = formData.members.split(',').map((members) => members.trim());
 
@@ -34,6 +36,7 @@ const AddClub = () => {
       const response = await axios.post('/clubs', requestData);
 
       console.log('Club request submitted:', response.data);
+      setSuccessMessage('Club details submitted successfully.');
     } catch (error) {
       console.error('Error submitting club request:', error);
     }
@@ -87,6 +90,7 @@ const AddClub = () => {
 
         <button type="submit" className="bg-[#3FADA8] text-white px-4 py-2 rounded">Add Club</button>
       </form>
+      {successMessage && <div className="text-green-600">{successMessage}</div>}
     </div>
   );
 };
