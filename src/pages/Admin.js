@@ -46,7 +46,7 @@ const Admin = () => {
                     style={activeSection === 'LoginDetails' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
                     onClick={() => handleSectionClick('LoginDetails')}
                 >
-                    Login Details
+                    Club & Login Details
                 </button>
                 {activeSection === 'LoginDetails' && <LoginDetails />}
             </div>
