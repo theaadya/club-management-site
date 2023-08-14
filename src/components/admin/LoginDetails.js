@@ -65,7 +65,7 @@ const LoginDetails = () => {
           <tr>
             <th className="text-center">Name</th>
             <th className="text-center">Description</th>
-            <th className="text-center">Coordinator</th>
+            <th className="text-center">Club Email</th>
             <th className="text-center">Action</th>
           </tr>
         </thead>
@@ -76,14 +76,14 @@ const LoginDetails = () => {
                 {club.name}
               </td>
               <td className="border px-4 py-2">{club.description}</td>
-              <td className="border px-4 py-2 capitalize">{club.coordinator}</td>
+              <td className="border px-4 py-2">{club.email}</td>
               <td className="border px-4 py-2">
-                <button
+                {/* <button
                   className="bg-[#3FADA8] hover:bg-[#808080] text-white py-1 px-2 rounded mr-2"
                   onClick={() => openLogin(club)}
                 >
                   Edit Login Details
-                </button>
+                </button> */}
                 <button
                   className="bg-[#3FADA8] hover:bg-[#808080] text-white py-1 px-2 rounded"
                   onClick={() => openModal(club)}
@@ -108,7 +108,7 @@ const LoginDetails = () => {
           onChange={(e) => setStudentCouncilCoordinator(e.target.value)}
         />
 
-        <label htmlFor="studentCouncilPassword">New Password:</label>
+        {/* <label htmlFor="studentCouncilPassword">New Password:</label>
         <input
           type="text"
           id="studentCouncilPassword"
@@ -116,7 +116,7 @@ const LoginDetails = () => {
           className="border p-2 mb-2"
           value={studentCouncilCoordinator}
           onChange={(e) => setStudentCouncilCoordinator(e.target.value)}
-        />
+        /> */}
 
         <button type="submit" className="bg-[#3FADA8] text-white px-4 py-2 rounded">Save Changes</button>
       </form>
@@ -249,7 +249,7 @@ const LoginDetails = () => {
                 onChange={(e) => setClubCouncilCoordinator(e.target.value)}
               />
 
-              <label htmlFor="clubCouncilPassword">New Password:</label>
+              {/* <label htmlFor="clubCouncilPassword">New Password:</label>
               <input
                 type="text"
                 id="clubCouncilPassword"
@@ -257,7 +257,7 @@ const LoginDetails = () => {
                 className="border p-2 mb-2"
                 value={clubCouncilCoordinator}
                 onChange={(e) => setClubCouncilCoordinator(e.target.value)}
-              />
+              /> */}
 
               <div className="flex justify-between">  {/* Use a flex container for the buttons */}
                 <button type="submit" className="mx-4 bg-[#3FADA8] hover:bg-gray-400 text-white px-4 py-2 rounded">
