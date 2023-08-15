@@ -27,14 +27,17 @@ const GoogleLoginComponent = () => {
     } else if (userLevel === "Student Club Coordinator") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
+      createSession(email);
       window.location.href = '/studentcoordinator';
     } else if (userLevel === "Club Coordinator") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
+      createSession(email);
       window.location.href = '/clubcoordinator';
     } else if (userLevel === "Admin") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
+      createSession(email);
       window.location.href = '/admin';
     } else {
       console.log(credentialResponse);
