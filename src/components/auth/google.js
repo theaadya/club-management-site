@@ -3,11 +3,29 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 const GoogleLoginComponent = () => {
+  const [username, setUsername] = useState('');
+  //const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('auth/api/session', {
+        email: username, // Assuming the email field corresponds to the username
+      });
+
+      console.log('Session created:', response.data);
+      // Handle successful login, redirect, etc.
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error, show error message, etc.
+    }
+  };
+
   const handleLoginSuccess = async (credentialResponse) => {
     const idToken = credentialResponse.credential;
     const email = await fetchEmailFromGoogle(idToken);
     const userLevel = await fetchUserLevel(email);
-
+    setUsername(email);
+    
     if (userLevel === "Student") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
