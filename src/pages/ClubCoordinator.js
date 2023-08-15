@@ -3,7 +3,7 @@ import Navbar from '../components/common/navbar.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-console.log('kdjfkj');
+
 const ClubCoordinator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -57,14 +57,24 @@ const ClubCoordinator = () => {
     }
   };
     
-    
+  const logout = async () => {
+    try {
+      await axios.delete('/auth/api/session', {
+        withCredentials: true,
+      });
+      // Redirect to the login page or perform other necessary actions
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle logout error, show error message, etc.
+    }
+  };
   
   return (
     <>
       <Navbar />
     
         <div className="p-6">
-            <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+            <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
             Logout
           </Link>
 

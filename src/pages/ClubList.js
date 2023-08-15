@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/common/navbar.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const ClubList = () => {
   const [clubs, setClubs] = useState([]);
@@ -21,6 +22,18 @@ const ClubList = () => {
     setSelectedClub(null);
   };
 
+  const logout = async () => {
+    try {
+      await axios.delete('/auth/api/session', {
+        withCredentials: true,
+      });
+      // Redirect to the login page or perform other necessary actions
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle logout error, show error message, etc.
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -31,7 +44,7 @@ const ClubList = () => {
         <Link to="/events" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Approved Events
         </Link>
-        <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+        <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Logout
         </Link>
       </div>

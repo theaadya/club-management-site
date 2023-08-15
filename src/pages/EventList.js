@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/common/navbar.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -8,6 +9,23 @@ const EventList = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [email, setEmail] = useState('');
+  const [sessionData, setSessionData] = useState(null);
+
+  useEffect(() => {
+    async function getSessionData() {
+      try {
+        const response = await axios.get('/auth/api/session', {
+          withCredentials: true,
+        });
+        setSessionData(response.data);
+      } catch (error) {
+        console.error('Error fetching session data:', error);
+        setSessionData(error.message);
+      }
+    }
+
+    getSessionData();
+  }, []);
 
   useEffect(() => {
     fetch('/events/approved') // Replace with the appropriate API endpoint
@@ -35,6 +53,18 @@ const EventList = () => {
     setShowModal(false);
   };
 
+  const logout = async () => {
+    try {
+      await axios.delete('/auth/api/session', {
+        withCredentials: true,
+      });
+      // Redirect to the login page or perform other necessary actions
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle logout error, show error message, etc.
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -45,12 +75,12 @@ const EventList = () => {
         <Link to="/clubs" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Club List
         </Link>
-        <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+        <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Logout
         </Link>
       </div>
       <div className="container mx-auto p-4">
-        <div className="grid grid-cols-2 gap-4">            
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <h2 className="text-2xl font-bold mt-4 mb-4">Event List</h2>
             <ul className="grid gap-4">
@@ -61,12 +91,20 @@ const EventList = () => {
                   {/* ... other event details ... */}
                   <button
                     className={`bg-[#3FADA8] hover:bg-[#808080] text-white font-bold py-2 px-4 rounded ${
-                      registeredEvents.includes(event._id) ? 'opacity-50 cursor-not-allowed' : 'hover:text-white'
+                      registeredEvents.includes(event._id) || (sessionData && event.participants.includes(sessionData.email))
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:text-white'
                     }`}
                     onClick={() => openModal(event._id)}
-                    disabled={registeredEvents.includes(event._id)}
+                    disabled={
+                      registeredEvents.includes(event._id) ||
+                      (sessionData && event.participants.includes(sessionData.email))
+                    }
                   >
-                    {registeredEvents.includes(event._id) ? 'Registered' : 'Register'}
+                    {registeredEvents.includes(event._id) ||
+                    (sessionData && event.participants.includes(sessionData.email))
+                      ? 'Registered'
+                      : 'Register'}
                   </button>
                 </li>
               ))}
