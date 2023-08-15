@@ -3,20 +3,14 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 const GoogleLoginComponent = () => {
-  const [username, setUsername] = useState('');
-  //const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const createSession = async (email) => {
     try {
-      const response = await axios.post('auth/api/session', {
-        email: username, // Assuming the email field corresponds to the username
-      });
+      const response = await axios.post('auth/api/session', {email});
 
       console.log('Session created:', response.data);
-      // Handle successful login, redirect, etc.
     } catch (error) {
       console.error('Login error:', error);
-      // Handle login error, show error message, etc.
     }
   };
 
@@ -24,12 +18,12 @@ const GoogleLoginComponent = () => {
     const idToken = credentialResponse.credential;
     const email = await fetchEmailFromGoogle(idToken);
     const userLevel = await fetchUserLevel(email);
-    setUsername(email);
     
     if (userLevel === "Student") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
-      //window.location.href = '/mainpage';
+      createSession(email);
+      window.location.href = '/mainpage';
     } else if (userLevel === "Student Club Coordinator") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
@@ -45,7 +39,7 @@ const GoogleLoginComponent = () => {
     } else {
       console.log(credentialResponse);
       console.log('Login Failed: Invalid email address or user not found');
-      //window.location.href = '/signup';
+      window.location.href = '/signup';
     }
   };
 
