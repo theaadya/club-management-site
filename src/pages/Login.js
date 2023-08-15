@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GoogleLoginComponent from '../components/auth/google.js';
 import Navbar from '../components/common/navbar.js';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -35,7 +35,6 @@ const Login = () => {
             <button
               className="bg-[#3FADA8] hover:bg-[#808080] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
-              onClick={handleLogin}
             >
               Sign In
             </button>
