@@ -11,7 +11,7 @@ const GoogleLoginComponent = () => {
     if (userLevel === "Student") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
-      window.location.href = '/mainpage';
+      //window.location.href = '/mainpage';
     } else if (userLevel === "Student Club Coordinator") {
       console.log(credentialResponse);
       console.log(`User's level: ${userLevel}`);
@@ -27,7 +27,7 @@ const GoogleLoginComponent = () => {
     } else {
       console.log(credentialResponse);
       console.log('Login Failed: Invalid email address or user not found');
-      window.location.href = '/signup';
+      //window.location.href = '/signup';
     }
   };
 
@@ -43,7 +43,7 @@ const GoogleLoginComponent = () => {
 
   const fetchUserLevel = async (email) => {
     try {
-      const response = await axios.get('/auth');
+      const response = await axios.get('/user');
       const users = response.data;
       const matchingUser = users.find(user => user.email === email);
       if (matchingUser) {

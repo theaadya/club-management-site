@@ -54,5 +54,11 @@ db.createCollection("events", {
 db.users.insertOne({
   name: "Akanksha Singal",
   email: "akanksha21008@iiitd.ac.in",
+  level: "Student"
+})
+
+db.users.insertOne({
+  name: "Astronuts Club",
+  email: "astronuts@sc.iiitd.ac.in",
   level: "Club Coordinator"
 })
