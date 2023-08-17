@@ -34,12 +34,27 @@ const EventList = () => {
       .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (selectedEventId && email) {
-      setRegisteredEvents((prevRegisteredEvents) => [...prevRegisteredEvents, selectedEventId]);
-      setEmail('');
-      setSelectedEventId(null);
-      setShowModal(false);
+      try {
+        await axios.post(`/events/${selectedEventId}/registrations`, { email });
+        
+        // Update the participants array for the registered event
+        const updatedEvents = events.map((event) =>
+          event._id === selectedEventId
+            ? { ...event, participants: [...event.participants, email] }
+            : event
+        );
+
+        setEvents(updatedEvents);
+        setRegisteredEvents((prevRegisteredEvents) => [...prevRegisteredEvents, selectedEventId]);
+        setEmail('');
+        setSelectedEventId(null);
+        setShowModal(false);
+      } catch (error) {
+        console.error('Error registering for event:', error);
+        // Handle registration error, show error message, etc.
+      }
     }
   };
 
