@@ -14,9 +14,9 @@ const ClubCoordinator = () => {
     end: "",
     venue:"",
     coordinator:"",
-    status: "",
+    // status: "",
     registrationDeadline:"",
-    club:"",
+    // club:"",
     creationDate:"",
   });
 
@@ -40,9 +40,9 @@ const ClubCoordinator = () => {
         end: formData.end,
         venue: formData.venue,
         coordinator: formData.coordinator,
-        status: formData.status,
+        status: "pending",
         registrationDeadline: formData.registrationDeadline,   
-        club: formData.club,
+        club: sessionData.email,
         participants: [],
         creationDate: formData.creationDate,
       };
@@ -283,14 +283,14 @@ const ClubCoordinator = () => {
                     onChange={(e) => setFormData({ ...formData, coordinator: e.target.value })}
                   />
 
-                  <label className="block font-bold">Status</label>
+                  {/* <label className="block font-bold">Status</label>
                   <input
                     type="text"
                     className="border border-gray-300 p-2 w-full"
                     name="status"
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                  />
+                  /> */}
 
                   <label className="block font-bold">Registration Deadline</label>
                   <input
@@ -301,14 +301,14 @@ const ClubCoordinator = () => {
                     onChange={(e) => setFormData({ ...formData, registrationDeadline: e.target.value })}
                   />
 
-                  <label className="block font-bold">Club</label>
+                  {/* <label className="block font-bold">Club</label>
                   <input
                     type="text"
                     className="border border-gray-300 p-2 w-full"
                     name="club"
                     value={formData.club}
                     onChange={(e) => setFormData({ ...formData, club: e.target.value })}
-                  />
+                  /> */}
 
                   <label className="block font-bold">Creation Date</label>
                   <input
