@@ -38,15 +38,15 @@ const ClubList = () => {
     <>
       <Navbar />
       <div className="pt-8 pb-4 flex justify-center space-x-4 mb-4">
-        <Link to="/mainpage" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+        <Link to="/mainpage" className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md">
           Main Page
         </Link>
-        <Link to="/events" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+        <Link to="/events" className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md">
           Approved Events
         </Link>
-        <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+        {/* <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
           Logout
-        </Link>
+        </Link> */}
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Clubs List</h2>
@@ -96,6 +96,11 @@ const ClubList = () => {
           </div>
         </div>
       )}
+      <div className="flex justify-center items-center p-6">
+        <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
+          Logout
+        </Link>
+      </div>
     </>
   );
 };

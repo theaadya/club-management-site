@@ -128,14 +128,6 @@ const ClubCoordinator = () => {
   return (
     <>
       <Navbar />
-    
-        <div className="p-6">
-            <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
-            Logout
-          </Link>
-
-          </div>
-       
       <div className="container mx-auto p-4">
         <h1 className="text-2xl text-center font-bold mb-4">Club Coordinator Dashboard</h1>
         <div className="grid grid-cols-2 gap-4">
@@ -413,6 +405,11 @@ const ClubCoordinator = () => {
             </div>
           </div>
         )}
+        <div className="flex justify-center items-center p-6">
+          <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
+            Logout
+          </Link>
+        </div>
     </>
   );
 };

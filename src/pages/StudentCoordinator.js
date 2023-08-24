@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/common/navbar.js';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const StudentCoordinator = () => {
@@ -39,6 +40,18 @@ const StudentCoordinator = () => {
       setEvents(response.data);
     } catch (error) {
       console.error('Error updating event:', error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await axios.delete('/auth/api/session', {
+        withCredentials: true,
+      });
+      // Redirect to the login page or perform other necessary actions
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle logout error, show error message, etc.
     }
   };
   
@@ -192,6 +205,11 @@ const StudentCoordinator = () => {
             </div>
           </div>
         )}
+        <div className="flex justify-center items-center p-6">
+          <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
+            Logout
+          </Link>
+        </div>
     </>
   );
 };

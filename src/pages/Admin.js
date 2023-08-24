@@ -3,6 +3,8 @@ import Navbar from '../components/common/navbar.js';
 import EventManagement from '../components/admin/EventManagement.js';
 import AddClub from '../components/admin/AddClub.js';
 import LoginDetails from '../components/admin/LoginDetails.js';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
     const [activeSection, setActiveSection] = useState(null);
@@ -19,6 +21,18 @@ const Admin = () => {
         cursor: 'pointer',
         marginBottom: '10px',
     };
+
+    const logout = async () => {
+        try {
+          await axios.delete('/auth/api/session', {
+            withCredentials: true,
+          });
+          // Redirect to the login page or perform other necessary actions
+        } catch (error) {
+          console.error('Error during logout:', error);
+          // Handle logout error, show error message, etc.
+        }
+      };
 
     return (
         <div>
@@ -49,6 +63,11 @@ const Admin = () => {
                     Club & Login Details
                 </button>
                 {activeSection === 'LoginDetails' && <LoginDetails />}
+            </div>
+            <div className="flex justify-center items-center p-6">
+                <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
+                    Logout
+                </Link>
             </div>
         </div>
     );
