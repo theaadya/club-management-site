@@ -77,6 +77,7 @@ const EventList = () => {
   };
 
   const navigationButtons = [
+    { to: '/profile', label: 'Profile' },
     { to: '/mainpage', label: 'Main Page' },
     { to: '/clubs', label: 'Club List' },
     { to: '/login', label: 'Logout', onClick: {logout} },

@@ -32,6 +32,7 @@ const Admin = () => {
       };
     
     const navigationButtons = [
+        { to: '/profile', label: 'Profile' },
         { to: '/login', label: 'Logout', onClick: {logout} },
       ];
 

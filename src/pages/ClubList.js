@@ -33,6 +33,7 @@ const ClubList = () => {
   };
 
   const navigationButtons = [
+    { to: '/profile', label: 'Profile' },
     { to: '/mainpage', label: 'Main Page' },
     { to: '/events', label: 'Upcoming Events' },
     { to: '/login', label: 'Logout', onClick: {logout} },
