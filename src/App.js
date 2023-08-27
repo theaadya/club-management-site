@@ -10,6 +10,7 @@ import ClubCoordinator from './pages/ClubCoordinator';
 import StudentCoordinator from './pages/StudentCoordinator';
 import ClubList from './pages/ClubList';
 import EventList from './pages/EventList';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/studentcoordinator" element={<StudentCoordinator />} />
           <Route path="/clubs" element={<ClubList />} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
