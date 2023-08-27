@@ -27,21 +27,21 @@ const Profile = () => {
     useEffect(() => {
       const fetchAllEvents = async () => {
         try {
-          const response = await axios.get('/events');
-          const allEvents = response.data.events;
-  
-          const userRegisteredEvents = allEvents.filter((event) =>
-            event.participants.some((participant) => participant.email === sessionData?.email)
+            const response = await axios.get('/events');
+            const allEvents = response.data;
+    
+            const userRegisteredEvents = allEvents.filter((event) =>
+            event.participants.some((participant) => participant === sessionData?.email)
           );
   
-          setRegisteredEvents(userRegisteredEvents);
+            setRegisteredEvents(userRegisteredEvents);
         } catch (error) {
           console.error('Error fetching events:', error);
         }
       };
   
       fetchAllEvents();
-    }, [sessionData]);
+    });
   
     const logout = async () => {
       try {
@@ -61,7 +61,7 @@ const Profile = () => {
       <>
         <Navbar navigationButtons={navigationButtons} />
         <div className="container mx-auto mt-8">
-          <h1 className="text-3xl font-bold mb-4 mx-2">User Profile</h1>
+          <h1 className="text-3xl font-bold mb-4 mx-2">My Profile</h1>
           <div className="bg-white p-4 rounded shadow-lg">
             {sessionData ? (
                 <>
@@ -78,10 +78,12 @@ const Profile = () => {
             </div>
   
           <div className="mt-4">
-            <h2 className="text-xl font-semibold mb-2 mx-2">Registered Events</h2>
+            <h2 className="text-xl font-semibold mt-6 mb-2 mx-4">Registered Events</h2>
             <ul>
               {registeredEvents.map((event) => (
-                <li key={event.id}>{event.name}</li>
+                <div className="bg-white p-4 rounded shadow-lg">
+                    <li key={event._id}>{event.name}</li>
+                </div>
               ))}
             </ul>
           </div>
