@@ -43,17 +43,17 @@ const Profile = () => {
     });
   
     const logout = async () => {
-      try {
-        await axios.delete('/auth/api/session', {
-          withCredentials: true,
-        });
-      } catch (error) {
-        console.error('Error during logout:', error);
-      }
-    };
-  
+        try {
+          await axios.delete('/auth/api/session');
+          window.location.href = '/login';
+          console.log('Logged out');
+        } catch (error) {
+          console.error('Error during logout:', error);
+        }
+      };
+      
     const navigationButtons = [
-      { to: '/login', label: 'Logout', onClick: {logout} },
+      { label: 'Logout', click: logout },
     ];
   
     return (

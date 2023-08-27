@@ -11,7 +11,8 @@ const Navbar = ({ navigationButtons }) => {
         </Link>
         <div className="flex">
           {navigationButtons.map((button, index) => (
-            <Link key={index} to={button.to} className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md mr-4">
+            <Link key={index} to={button.to} className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md mr-4"
+              onClick={button.click}>
               {button.label}
             </Link>
           ))}

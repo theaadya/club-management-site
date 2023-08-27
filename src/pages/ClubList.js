@@ -24,9 +24,9 @@ const ClubList = () => {
 
   const logout = async () => {
     try {
-      await axios.delete('/auth/api/session', {
-        withCredentials: true,
-      });
+      await axios.delete('/auth/api/session');
+      window.location.href = '/login';
+      console.log('Logged out');
     } catch (error) {
       console.error('Error during logout:', error);
     }
@@ -36,7 +36,7 @@ const ClubList = () => {
     { to: '/profile', label: 'Profile' },
     { to: '/mainpage', label: 'Main Page' },
     { to: '/events', label: 'Upcoming Events' },
-    { to: '/login', label: 'Logout', onClick: {logout} },
+    { label: 'Logout', click: logout },
   ];
 
   return (

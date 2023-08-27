@@ -22,19 +22,19 @@ const MainPage = () => {
 
   const logout = async () => {
     try {
-      await axios.delete('/auth/api/session', {
-        withCredentials: true,
-      });
+      await axios.delete('/auth/api/session');
+      window.location.href = '/login';
+      console.log('Logged out');
     } catch (error) {
       console.error('Error during logout:', error);
     }
   };
-
+  
   const navigationButtons = [
     { to: '/profile', label: 'Profile' },
     { to: '/events', label: 'Upcoming Events' },
     { to: '/clubs', label: 'Club List' },
-    { to: '/login', label: 'Logout', onClick: logout },
+    { label: 'Logout', click: logout },
   ];
 
   return (
