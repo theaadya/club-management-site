@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/common/navbar';
 import axios from 'axios';
 
 const Profile = () => {
+    const logout = async () => {
+        try {
+          await axios.delete('/auth/api/session', {
+            withCredentials: true,
+          });
+        } catch (error) {
+          console.error('Error during logout:', error);
+        }
+    };
+
     const navigationButtons = [
-        { to: '/about', label: 'About' },
-        { to: '/contact', label: 'Contact' },
+        { to: '/login', label: 'Logout', onClick: {logout} },
     ];
     
     return (
