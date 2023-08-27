@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/common/navbar.js';
 
 const Home = () => {
+  const navigationButtons = [
+  ];
+
   return (
-    <><Navbar />
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#ffffff] to-[#3FADA8]">
-      <div className="max-w-md w-3/4 p-6 bg-white shadow-lg rounded-md">
+    <>
+    <div className="min-h-screen bg-gradient-to-r from-[#ffffff] to-[#3FADA8]">
+    <Navbar navigationButtons={navigationButtons} />
+    <div className='flex items-center justify-center p-10'>
+      <div className="items-center justify-center max-w-md w-3/4 p-6 bg-white shadow-lg rounded-md">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">IIITD's Club Management Site</h2>
         <h3 className="text-xl mb-6 text-center text-gray-800">Centralize, Organize, and Elevate Your Club Experience</h3>
         <Link
@@ -19,7 +24,9 @@ const Home = () => {
           Don't have an account? <Link to="/signup" className="text-[#808080] hover:text-[#3FADA8] underline">Sign up</Link>
         </p>
       </div>
-    </div></>
+      </div>
+    </div>
+    </>
   );
 };
 

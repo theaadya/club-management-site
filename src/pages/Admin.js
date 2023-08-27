@@ -4,7 +4,6 @@ import EventManagement from '../components/admin/EventManagement.js';
 import AddClub from '../components/admin/AddClub.js';
 import LoginDetails from '../components/admin/LoginDetails.js';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const Admin = () => {
     const [activeSection, setActiveSection] = useState(null);
@@ -27,16 +26,18 @@ const Admin = () => {
           await axios.delete('/auth/api/session', {
             withCredentials: true,
           });
-          // Redirect to the login page or perform other necessary actions
         } catch (error) {
           console.error('Error during logout:', error);
-          // Handle logout error, show error message, etc.
         }
       };
+    
+    const navigationButtons = [
+        { to: '/login', label: 'Logout', onClick: {logout} },
+      ];
 
     return (
         <div>
-            <Navbar />
+            <Navbar navigationButtons={navigationButtons} />
             <div className='m-5'>
                 <button
                     style={activeSection === 'EventManagement' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
@@ -63,11 +64,6 @@ const Admin = () => {
                     Club & Login Details
                 </button>
                 {activeSection === 'LoginDetails' && <LoginDetails />}
-            </div>
-            <div className="flex justify-center items-center p-6">
-                <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
-                    Logout
-                </Link>
             </div>
         </div>
     );

@@ -31,7 +31,7 @@ const MainPage = () => {
   };
 
   const navigationButtons = [
-    { to: '/events', label: 'Approved Events' },
+    { to: '/events', label: 'Upcoming Events' },
     { to: '/clubs', label: 'Club List' },
     { to: '/login', label: 'Logout', onClick: {logout} },
   ];

@@ -8,7 +8,7 @@ const ClubList = () => {
   const [selectedClub, setSelectedClub] = useState(null);
 
   useEffect(() => {
-    fetch('/clubs') // Replace with the appropriate API endpoint
+    fetch('/clubs') 
       .then((response) => response.json())
       .then((data) => setClubs(data))
       .catch((error) => console.error('Error fetching clubs:', error));
@@ -27,27 +27,20 @@ const ClubList = () => {
       await axios.delete('/auth/api/session', {
         withCredentials: true,
       });
-      // Redirect to the login page or perform other necessary actions
     } catch (error) {
       console.error('Error during logout:', error);
-      // Handle logout error, show error message, etc.
     }
   };
 
+  const navigationButtons = [
+    { to: '/mainpage', label: 'Main Page' },
+    { to: '/events', label: 'Upcoming Events' },
+    { to: '/login', label: 'Logout', onClick: {logout} },
+  ];
+
   return (
     <>
-      <Navbar />
-      <div className="pt-8 pb-4 flex justify-center space-x-4 mb-4">
-        <Link to="/mainpage" className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md">
-          Main Page
-        </Link>
-        <Link to="/events" className="bg-[#3FADA8] hover:bg-[#808080] text-white py-2 px-4 rounded-md">
-          Approved Events
-        </Link>
-        {/* <Link to="/login" onClick={logout} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
-          Logout
-        </Link> */}
-      </div>
+      <Navbar navigationButtons={navigationButtons} />
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Clubs List</h2>
         <ul className="grid gap-4">
@@ -55,7 +48,6 @@ const ClubList = () => {
             <li key={club._id} className="border p-4 rounded-lg shadow-md">
               <h3 className="text-lg font-semibold mb-2">{club.name}</h3>
               <p className="text-gray-600 mb-2">{club.description}</p>
-              {/* ... other club details ... */}
               <button
                 onClick={() => openClubDetails(club)}
                 className="text-[#3FADA8] hover:underline cursor-pointer"
@@ -96,11 +88,6 @@ const ClubList = () => {
           </div>
         </div>
       )}
-      <div className="flex justify-center items-center p-6">
-        <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
-          Logout
-        </Link>
-      </div>
     </>
   );
 };

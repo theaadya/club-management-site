@@ -4,9 +4,14 @@ import GoogleLoginComponent from '../components/auth/google.js';
 import Navbar from '../components/common/navbar.js';
 
 const SignUp = () => {
+  const navigationButtons = [
+  ];
+
   return (
-    <><Navbar />
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <>
+    <div className="min-h-screen bg-gray-100">
+    <Navbar navigationButtons={navigationButtons} />
+      <div className='flex items-center justify-center p-10'>
       <div className="max-w-md w-3/4 p-6 bg-white shadow-lg rounded-md">
         <h2 className="text-2xl text-center font-semibold mb-4">Sign Up</h2>
         {<form>
@@ -60,7 +65,9 @@ const SignUp = () => {
           </div>
         </form>}
       </div>
-    </div></>
+      </div>
+    </div>
+    </>
   );
 };
 

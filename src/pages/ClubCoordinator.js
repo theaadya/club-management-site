@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/common/navbar.js';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
 
 const ClubCoordinator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,10 +60,8 @@ const ClubCoordinator = () => {
       await axios.delete('/auth/api/session', {
         withCredentials: true,
       });
-      // Redirect to the login page or perform other necessary actions
     } catch (error) {
       console.error('Error during logout:', error);
-      // Handle logout error, show error message, etc.
     }
   };
 
@@ -90,7 +86,7 @@ const ClubCoordinator = () => {
   }, []);
   
   useEffect(() => {
-    fetch('/events') // Replace with the appropriate API endpoint
+    fetch('/events') 
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching events:', error));
@@ -125,16 +121,19 @@ const ClubCoordinator = () => {
     setIsEventModalOpen(false);
   };
 
+  const navigationButtons = [
+    { to: '/login', label: 'Logout', onClick: {logout} },
+  ];
+
   return (
     <>
-      <Navbar />
+      <Navbar navigationButtons={navigationButtons} />
       <div className="container mx-auto p-4">
         <h1 className="text-2xl text-center font-bold mb-4">Club Coordinator Dashboard</h1>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h2 className="text-xl font-bold mb-4">Past Events</h2>
             <ul className="border border-gray-300 p-2 bg-white">
-              {/* Iterate over past events */}
               <li className="flex justify-between items-center py-1 font-bold text-[#808080]">
                 <span>Event Name</span>
                 <span>Date</span>
@@ -160,7 +159,6 @@ const ClubCoordinator = () => {
               </button>
             </div>
             <ul className="border border-gray-300 p-2 bg-white">
-              {/* Iterate over new requests */}
               <li className="flex justify-between items-center py-1 font-bold text-[#808080]">
                 <span>Request Title</span>
                 <span>Request Date</span>
@@ -180,7 +178,6 @@ const ClubCoordinator = () => {
           <div>
             <h2 className="text-xl font-bold mb-4">Approved Requests</h2>
             <ul className="border border-gray-300 p-2 bg-white">
-              {/* Iterate over approved requests */}
               <li className="flex justify-between items-center py-1 font-bold text-[#808080]">
                 <span>Request Title</span>
                 <span>Request Date</span>
@@ -198,7 +195,6 @@ const ClubCoordinator = () => {
           <div>
             <h2 className="text-xl font-bold mb-4">Rejected Requests</h2>
             <ul className="border border-gray-300 p-2 bg-white">
-              {/* Iterate over rejected requests */}
               <li className="flex justify-between items-center py-1 font-bold text-[#808080]">
                 <span>Request Title</span>
                 <span>Request Date</span>
@@ -318,11 +314,6 @@ const ClubCoordinator = () => {
                     value={formData.creationDate}
                     onChange={(e) => setFormData({ ...formData, creationDate: e.target.value })}
                   />
-
-
-                  
-
-                  {/* ... other input fields ... */}
                 </div>
                 <div className="flex justify-center">
                   <button
@@ -405,11 +396,6 @@ const ClubCoordinator = () => {
             </div>
           </div>
         )}
-        <div className="flex justify-center items-center p-6">
-          <Link to="/login" onClick={logout} className="bg-[#808080] hover:bg-[#3FADA8] text-white py-2 px-4 rounded-md">
-            Logout
-          </Link>
-        </div>
     </>
   );
 };
