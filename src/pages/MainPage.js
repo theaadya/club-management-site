@@ -34,7 +34,7 @@ const MainPage = () => {
     { to: '/profile', label: 'Profile' },
     { to: '/events', label: 'Upcoming Events' },
     { to: '/clubs', label: 'Club List' },
-    { to: '/login', label: 'Logout', onClick: {logout} },
+    { to: '/login', label: 'Logout', onClick: logout },
   ];
 
   return (

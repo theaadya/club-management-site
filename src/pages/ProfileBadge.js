@@ -19,7 +19,6 @@ const fetchUserLevel = async (email) => {
 
 const ProfileBadge = ({ email }) => {
   const [level, setLevel] = React.useState(null);
-
   React.useEffect(() => {
     fetchUserLevel(email).then((result) => {
       setLevel(result);

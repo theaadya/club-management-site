@@ -6,8 +6,7 @@ import axios from 'axios';
 const Profile = () => {
     const [registeredEvents, setRegisteredEvents] = useState([]);
     const [sessionData, setSessionData] = useState(null);
-    const rollNumber = sessionData?.email ? '20' + sessionData.email.slice(-17, -12) : '';
-  
+
     useEffect(() => {
       async function getSessionData() {
         try {
@@ -66,7 +65,6 @@ const Profile = () => {
             {sessionData ? (
                 <>
                 <p><span className="font-bold">Name:</span> {sessionData.name}</p>
-                <p><span className="font-bold">Roll Number:</span> {rollNumber}</p>
                 <p><span className="font-bold">Email ID:</span> {sessionData.email}</p>
                 <p>
                     <span className="font-bold">Profile Type:</span> <ProfileBadge email={sessionData.email} />
