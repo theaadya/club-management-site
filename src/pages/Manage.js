@@ -87,6 +87,7 @@ const Manage = () => {
     return (
         <div>
             <Navbar navigationButtons={navigationButtons} />
+            {level === 'Student Club Coordinator' && (
             <div className='m-5'>
                 <button
                     style={activeSection === 'EventManagement' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
@@ -96,6 +97,7 @@ const Manage = () => {
                 </button>
                 {activeSection === 'EventManagement' && <EventManagement />}
             </div>
+            )}
             <div className='m-5'>
                 <button
                     style={activeSection === 'AddClub' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
@@ -114,17 +116,19 @@ const Manage = () => {
                 </button>
                 {activeSection === 'ClubChange' && <ClubChange />}
             </div>
+            {level === 'Admin' && (
             <div className='m-5'>
                 <button
-                    style={activeSection === 'LoginChange' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
-                    onClick={() => handleSectionClick('LoginChange')}
+                style={activeSection === 'LoginChange' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
+                onClick={() => handleSectionClick('LoginChange')}
                 >
-                    Edit Student Coordinator Login Details
+                Edit Student Coordinator Login Details
                 </button>
                 {activeSection === 'LoginChange' && <LoginChange />}
             </div>
+            )}
         </div>
     );
-};
+}
 
 export default Manage;
