@@ -5,6 +5,15 @@ import EventModal from '../components/common/EventModal.js';
 
 const ClubCoordinator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClubModalOpen, setIsClubModalOpen] = useState(false);
+  const [sessionData, setSessionData] = useState(null);
+  const [events, setEvents] = useState([]);
+  const today = new Date();
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedClub, setSelectedClub] = useState(null);
+  const [clubs, setClubs] = useState([]);
+
   const [formData, setFormData] = useState({
     eventName: "",
     eventDescription: "",
@@ -27,6 +36,15 @@ const ClubCoordinator = () => {
     setIsModalOpen(false);
   };
 
+  const openClubModal = (club) => {
+    setSelectedClub(club);
+    setIsClubModalOpen(true);
+  };
+
+  const closeClubModal = () => {
+    setIsClubModalOpen(false);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,7 +59,7 @@ const ClubCoordinator = () => {
         coordinator: formData.coordinator,
         status: "pending",
         registrationDeadline: formData.registrationDeadline,   
-        club: sessionData.email,
+        club: sessionData?.email,
         participants: [],
         creationDate: formData.creationDate,
       };
@@ -66,9 +84,28 @@ const ClubCoordinator = () => {
     }
   };
 
-  const [sessionData, setSessionData] = useState(null);
-  const [events, setEvents] = useState([]);
-  const today = new Date();
+  useEffect(() => {
+    async function fetchClubs() {
+      try {
+        const response = await axios.get('/clubs');
+        setClubs(response.data);
+      } catch (error) {
+        console.error('Error fetching clubs:', error);
+      }
+    }
+    fetchClubs();
+  }, []);
+
+  const updatedClubDetails = async (club) => {
+    try {
+      const updatedClub = { ...club };
+      delete updatedClub._id; 
+      await axios.put(`/clubs/${club._id}`, updatedClub);
+      closeClubModal();
+    } catch (error) {
+      console.error('Error updating club details:', error);
+    }
+  };
 
   useEffect(() => {
     async function getSessionData() {
@@ -94,24 +131,21 @@ const ClubCoordinator = () => {
   }, []);
 
   const approvedEvents = events.filter((event) => {
-    return event.club === sessionData.email && event.status === 'approved';
+    return event.club === sessionData?.email && event.status === 'approved';
   });
 
   const rejectedEvents = events.filter((event) => {
-    return event.club === sessionData.email && event.status === 'rejected';
+    return event.club === sessionData?.email && event.status === 'rejected';
   });
 
   const pendingEvents = events.filter((event) => {
-    return event.club === sessionData.email && event.status === 'pending';
+    return event.club === sessionData?.email && event.status === 'pending';
   });
 
   const pastEvents = events.filter((event) => {
     const eventStartDate = new Date(event.start); 
-    return event.club === sessionData.email && eventStartDate < today;
+    return event.club === sessionData?.email && eventStartDate < today;
   });
-
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const openEventModal = (event) => {
     setSelectedEvent(event);
@@ -122,17 +156,24 @@ const ClubCoordinator = () => {
     setIsEventModalOpen(false);
   };
 
+  const userClub = clubs.find((club) => club.email === sessionData?.email);
   const navigationButtons = [
+    {
+      label: 'Edit Club Info',
+      click: () => {
+        console.log(userClub);
+        openClubModal(userClub);
+      },
+    },
     { to: '/profile', label: 'Profile' },
-    { label: 'Edit Club Info' },
     { label: 'Logout', click: logout },
   ];
-
+  
   return (
     <>
       <Navbar navigationButtons={navigationButtons} />
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl text-center font-bold mb-4">Club Coordinator Dashboard</h1>
+        <h1 className="text-2xl text-center font-bold mb-4">{userClub.name} Club Coordinator Dashboard</h1>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h2 className="text-xl font-bold mb-4">Past Events</h2>
@@ -320,6 +361,58 @@ const ClubCoordinator = () => {
           </div>
         )}
       </div>
+
+      {isClubModalOpen && selectedClub && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="max-w-2xl w-3/4 max-h-2xl h-3/4 p-6 bg-white shadow-lg rounded-md overflow-y-auto">
+          <h2 className="text-2xl text-center font-bold mb-4">{selectedClub.name}</h2>
+            <div className="mb-4">
+              <label className="block font-bold">Description</label>
+              <textarea
+                className="border p-2 w-full"
+                value={selectedClub.description}
+                onChange={(e) => {
+                  const updatedClub = { ...selectedClub, description: e.target.value };
+                  setSelectedClub(updatedClub);
+                }}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block font-bold">Members</label>
+              <input
+                type="text"
+                className="border p-2 w-full"
+                value={selectedClub.members.join(',')}
+                onChange={(e) => {
+                  const membersInput = e.target.value;
+                  const updatedClub = { ...selectedClub, members: membersInput.split(',') };
+                  setSelectedClub(updatedClub);
+                }}
+              />
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="button"
+                className="ml-4 bg-[#3FADA8] hover:bg-gray-400 text-white py-2 px-4 rounded"
+                onClick={() => {
+                  updatedClubDetails(selectedClub);
+                }}
+              >
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="ml-4 bg-[#3FADA8] hover:bg-gray-400 text-white py-2 px-4 rounded"
+                onClick={() => {
+                  closeClubModal();
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       <EventModal
         isEventModalOpen={isEventModalOpen}
