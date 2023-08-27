@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/common/navbar.js';
 import EventManagement from '../components/admin/EventManagement.js';
 import AddClub from '../components/admin/AddClub.js';
@@ -6,7 +6,23 @@ import LoginChange from '../components/admin/LoginChange.js';
 import ClubChange from '../components/admin/ClubChange.js';
 import axios from 'axios';
 
-const Admin = () => {
+const fetchUserLevel = async (email) => {
+    try {
+      const response = await axios.get('/user');
+      const users = response.data;
+      const matchingUser = users.find((user) => user.email === email);
+      if (matchingUser) {
+        return matchingUser.level;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching user level:', error);
+      return null;
+    }
+  };
+  
+const Manage = () => {
     const [activeSection, setActiveSection] = useState(null);
 
     const handleSectionClick = (section) => {
@@ -22,6 +38,31 @@ const Admin = () => {
         marginBottom: '10px',
     };
 
+    const [sessionData, setSessionData] = useState(null);
+
+    useEffect(() => {
+        async function getSessionData() {
+        try {
+            const response = await axios.get('/auth/api/session', {
+            withCredentials: true,
+            });
+            setSessionData(response.data);
+        } catch (error) {
+            console.error('Error fetching session data:', error);
+            setSessionData(error.message);
+        }
+        }
+
+        getSessionData();
+    }, []);
+
+    const [level, setLevel] = React.useState(null);
+    React.useEffect(() => {
+        fetchUserLevel(sessionData?.email).then((result) => {
+        setLevel(result);
+        });
+    }, [sessionData?.email]);
+
     const logout = async () => {
         try {
           await axios.delete('/auth/api/session');
@@ -32,10 +73,16 @@ const Admin = () => {
         }
       };
         
-    const navigationButtons = [
+      const navigationButtons = [
         { to: '/profile', label: 'Profile' },
         { label: 'Logout', click: logout },
-    ];
+      ];
+      
+      if (level === 'Student Club Coordinator') {
+        navigationButtons.unshift({ to: '/studentcoordinator', label: 'Student Coordinator Page' });
+      } else if (level === 'Admin') {
+        navigationButtons.unshift({ to: '/admin', label: 'Admin Page' });
+      }
 
     return (
         <div>
@@ -45,7 +92,7 @@ const Admin = () => {
                     style={activeSection === 'EventManagement' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
                     onClick={() => handleSectionClick('EventManagement')}
                 >
-                    Event Management
+                    Pending Event Requests
                 </button>
                 {activeSection === 'EventManagement' && <EventManagement />}
             </div>
@@ -54,7 +101,7 @@ const Admin = () => {
                     style={activeSection === 'AddClub' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
                     onClick={() => handleSectionClick('AddClub')}
                 >
-                    Add Club
+                    Pending New Club Requests
                 </button>
                 {activeSection === 'AddClub' && <AddClub />}
             </div>
@@ -63,7 +110,7 @@ const Admin = () => {
                     style={activeSection === 'ClubChange' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
                     onClick={() => handleSectionClick('ClubChange')}
                 >
-                    Edit Club Details
+                    Edit Club Information
                 </button>
                 {activeSection === 'ClubChange' && <ClubChange />}
             </div>
@@ -72,7 +119,7 @@ const Admin = () => {
                     style={activeSection === 'LoginChange' ? { ...sectionButtonStyle, background: '#808080' } : sectionButtonStyle}
                     onClick={() => handleSectionClick('LoginChange')}
                 >
-                    Edit Login Details
+                    Edit Student Coordinator Login Details
                 </button>
                 {activeSection === 'LoginChange' && <LoginChange />}
             </div>
@@ -80,4 +127,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default Manage;

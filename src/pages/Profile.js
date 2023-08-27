@@ -2,10 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/common/navbar';
 import ProfileBadge from './ProfileBadge';
 import axios from 'axios';
+import EventModal from '../components/common/EventModal';
 
 const Profile = () => {
     const [registeredEvents, setRegisteredEvents] = useState([]);
     const [sessionData, setSessionData] = useState(null);
+    const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+  
+    const openEventModal = (event) => {
+      setSelectedEvent(event);
+      setIsEventModalOpen(true);
+    };
+  
+    const closeEventModal = () => {
+      setIsEventModalOpen(false);
+    };  
 
     useEffect(() => {
       async function getSessionData() {
@@ -80,12 +92,21 @@ const Profile = () => {
             <ul>
               {registeredEvents.map((event) => (
                 <div className="bg-white p-4 rounded shadow-lg">
-                    <li key={event._id}>{event.name}</li>
+                    <li key={event._id}
+                      className='flex justify-between items-center py-1 cursor-pointer hover:text-[#3FADA8]'
+                      onClick={() => openEventModal(event)}>
+                      {event.name}
+                    </li>
                 </div>
               ))}
             </ul>
           </div>
         </div>
+        <EventModal
+          isEventModalOpen={isEventModalOpen}
+          selectedEvent={selectedEvent}
+          closeEventModal={closeEventModal}
+        />
       </>
     );
   };
